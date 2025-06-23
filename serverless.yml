@@ -1,0 +1,343 @@
+service: lab-registro
+
+frameworkVersion: '4.17.1'
+
+plugins:
+  - serverless-webpack
+
+custom:
+  webpack:
+    webpackConfig: 'webpack.config.js'
+    includeModules: true
+    packager: 'npm'
+    packagerOptions:
+      scripts:
+        - npm install --production
+    excludeFiles: src/**/*.test.js
+  prune:
+    automatic: true
+    number: 3
+
+provider:
+  name: aws
+  runtime: nodejs20.x
+  region: us-east-2  # Updated to match your AWS config
+  stage: ${opt:stage, 'dev'}
+  environment:
+    NODE_ENV: ${env:NODE_ENV, 'development'}
+    DYNAMODB_TABLE: ${self:service}-${self:provider.stage}
+    ITEMS_TABLE: ${self:service}-${self:provider.stage}
+  iam:
+    role:
+      statements:
+        - Effect: Allow
+          Action:
+            - dynamodb:Query
+            - dynamodb:Scan
+            - dynamodb:GetItem
+            - dynamodb:PutItem
+            - dynamodb:UpdateItem
+            - dynamodb:DeleteItem
+            - dynamodb:BatchWriteItem
+            - dynamodb:BatchGetItem
+          Resource: 
+            - !GetAtt ItemsTable.Arn
+            - !Sub ${ItemsTable.Arn}/index/*
+
+package:
+  individually: true
+  excludeDevDependencies: false
+  patterns:
+    - '!node_modules/**'
+    - '!package-lock.json'
+    - '!README.md'
+    - '!.git/**'
+    - '!.github/**'
+    - '!.gitignore'
+    - '!.env'
+    - '!.env.example'
+    - '!.webpack/**'
+    - '!.serverless/**'
+
+resources:
+  Resources:
+    ItemsTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: ${self:service}-${self:provider.stage}
+        BillingMode: PAY_PER_REQUEST
+        AttributeDefinitions:
+          - AttributeName: PK
+            AttributeType: S
+          - AttributeName: SK
+            AttributeType: S
+          - AttributeName: GSI1PK
+            AttributeType: S
+          - AttributeName: GSI1SK
+            AttributeType: S
+        KeySchema:
+          - AttributeName: PK
+            KeyType: HASH
+          - AttributeName: SK
+            KeyType: RANGE
+        GlobalSecondaryIndexes:
+          - IndexName: GSI1
+            KeySchema:
+              - AttributeName: GSI1PK
+                KeyType: HASH
+              - AttributeName: GSI1SK
+                KeyType: RANGE
+            Projection:
+              ProjectionType: ALL
+
+functions:
+  # Bienvenida
+  bienvenida:
+    handler: handler.bienvenida
+    events:
+      - httpApi:
+          path: /
+          method: GET
+
+  # Laboratorios
+  crearLaboratorio:
+    handler: handler.crearLaboratorio
+    events:
+      - httpApi:
+          path: /laboratorios
+          method: POST
+  
+  obtenerLaboratorio:
+    handler: handler.obtenerLaboratorio
+    events:
+      - httpApi:
+          path: /laboratorios/{id}
+          method: GET
+  
+  actualizarLaboratorio:
+    handler: handler.actualizarLaboratorio
+    events:
+      - httpApi:
+          path: /laboratorios/{id}
+          method: PUT
+  
+  eliminarLaboratorio:
+    handler: handler.eliminarLaboratorio
+    events:
+      - httpApi:
+          path: /laboratorios/{id}
+          method: DELETE
+  
+  listarLaboratorios:
+    handler: handler.listarLaboratorios
+    events:
+      - httpApi:
+          path: /laboratorios
+          method: GET
+  
+  verificarDisponibilidad:
+    handler: handler.verificarDisponibilidad
+    events:
+      - httpApi:
+          path: /laboratorios/{id}/disponibilidad
+          method: GET
+
+  # Asignaturas
+  crearAsignatura:
+    handler: handler.crearAsignatura
+    events:
+      - httpApi:
+          path: /asignaturas
+          method: POST
+  
+  obtenerAsignatura:
+    handler: handler.obtenerAsignatura
+    events:
+      - httpApi:
+          path: /asignaturas/{id}
+          method: GET
+  
+  actualizarAsignatura:
+    handler: handler.actualizarAsignatura
+    events:
+      - httpApi:
+          path: /asignaturas/{id}
+          method: PUT
+  
+  eliminarAsignatura:
+    handler: handler.eliminarAsignatura
+    events:
+      - httpApi:
+          path: /asignaturas/{id}
+          method: DELETE
+  
+  listarAsignaturas:
+    handler: handler.listarAsignaturas
+    events:
+      - httpApi:
+          path: /asignaturas
+          method: GET
+  
+  obtenerAsignaturasPorDocente:
+    handler: handler.obtenerAsignaturasPorDocente
+    events:
+      - httpApi:
+          path: /docentes/{docenteId}/asignaturas
+          method: GET
+  
+  obtenerAsignaturaConParciales:
+    handler: handler.obtenerAsignaturaConParciales
+    events:
+      - httpApi:
+          path: /asignaturas/id/{id}/parciales
+          method: GET
+
+  # Parciales
+  crearParcial:
+    handler: handler.crearParcial
+    events:
+      - httpApi:
+          path: /asignaturas/{asignaturaId}/parciales
+          method: POST
+  
+  obtenerParcial:
+    handler: handler.obtenerParcial
+    events:
+      - httpApi:
+          path: /asignaturas/{asignaturaId}/parciales/{id}
+          method: GET
+  
+  actualizarParcial:
+    handler: handler.actualizarParcial
+    events:
+      - httpApi:
+          path: /asignaturas/{asignaturaId}/parciales/{id}
+          method: PUT
+  
+  eliminarParcial:
+    handler: handler.eliminarParcial
+    events:
+      - httpApi:
+          path: /asignaturas/{asignaturaId}/parciales/{id}
+          method: DELETE
+  
+  listarParcialesPorAsignatura:
+    handler: handler.listarParcialesPorAsignatura
+    events:
+      - httpApi:
+          path: /asignaturas/{asignaturaId}/parciales
+          method: GET
+  
+  listarParcialesActivos:
+    handler: handler.listarParcialesActivos
+    events:
+      - httpApi:
+          path: /parciales/activos
+          method: GET
+  
+  obtenerParcialConPracticas:
+    handler: handler.obtenerParcialConPracticas
+    events:
+      - httpApi:
+          path: /asignaturas/{asignaturaId}/parciales/id/{id}/practicas
+          method: GET
+
+  # Prácticas
+  crearPractica:
+    handler: handler.crearPractica
+    events:
+      - httpApi:
+          path: /asignaturas/{asignaturaId}/parciales/{parcialId}/practicas
+          method: POST
+  
+  obtenerPractica:
+    handler: handler.obtenerPractica
+    events:
+      - httpApi:
+          path: /practicas/{id}
+          method: GET
+  
+  actualizarPractica:
+    handler: handler.actualizarPractica
+    events:
+      - httpApi:
+          path: /practicas/{id}
+          method: PUT
+  
+  eliminarPractica:
+    handler: handler.eliminarPractica
+    events:
+      - httpApi:
+          path: /practicas/{id}
+          method: DELETE
+  
+  listarPracticasPorParcial:
+    handler: handler.listarPracticasPorParcial
+    events:
+      - httpApi:
+          path: /asignaturas/{asignaturaId}/parciales/parcial/{parcialId}/practicas
+          method: GET
+  
+  listarPracticasPorLaboratorio:
+    handler: handler.listarPracticasPorLaboratorio
+    events:
+      - httpApi:
+          path: /laboratorios/{laboratorioId}/practicas
+          method: GET
+  
+  obtenerPracticaConUsos:
+    handler: handler.obtenerPracticaConUsos
+    events:
+      - httpApi:
+          path: /practicas/{id}/usos
+          method: GET
+
+  # Uso de Equipos
+  registrarUso:
+    handler: handler.registrarUso
+    events:
+      - httpApi:
+          path: /uso-equipos
+          method: POST
+  
+  finalizarUso:
+    handler: handler.finalizarUso
+    events:
+      - httpApi:
+          path: /uso-equipos/{id}/finalizar
+          method: PUT
+  
+  obtenerUso:
+    handler: handler.obtenerUso
+    events:
+      - httpApi:
+          path: /uso-equipos/{id}
+          method: GET
+  
+  listarUsosPorEstudiante:
+    handler: handler.listarUsosPorEstudiante
+    events:
+      - httpApi:
+          path: /estudiantes/{estudianteId}/usos
+          method: GET
+  
+  listarUsosPorPractica:
+    handler: handler.listarUsosPorPractica
+    events:
+      - httpApi:
+          path: /practicas/id/{practicaId}/usos
+          method: GET
+  
+  listarUsosPorLaboratorio:
+    handler: handler.listarUsosPorLaboratorio
+    events:
+      - httpApi:
+          path: /laboratorios/{laboratorioId}/usos
+          method: GET
+  
+  obtenerEstadisticasLaboratorio:
+    handler: handler.obtenerEstadisticasLaboratorio
+    events:
+      - httpApi:
+          path: /laboratorios/{laboratorioId}/estadisticas
+          method: GET

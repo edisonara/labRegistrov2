@@ -1,0 +1,38 @@
+{
+  "name": "lab-registro",
+  "version": "1.0.0",
+  "description": "Sistema de gestión de laboratorios con Serverless Framework",
+  "main": "handler.js",
+  "scripts": {
+    "deploy:dev": "NODE_ENV=development serverless deploy --stage dev",
+    "deploy:prod": "NODE_ENV=production serverless deploy --stage prod",
+    "remove:dev": "serverless remove --stage dev",
+    "remove:prod": "serverless remove --stage prod",
+    "test": "jest",
+    "lint": "eslint . --ext .js",
+    "format": "prettier --write \"**/*.{js,json,md}\""
+  },
+  "keywords": [
+    "serverless",
+    "aws",
+    "dynamodb",
+    "nodejs",
+    "laboratorios",
+    "educación",
+    "api"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.830.0",
+    "@aws-sdk/lib-dynamodb": "^3.830.0",
+    "http-errors": "2.0.0",
+    "joi": "17.13.3",
+    "serverless": "3.40.0",
+    "uuid": "^9.0.1",
+    "winston": "3.17.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
