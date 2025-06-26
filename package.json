@@ -28,11 +28,12 @@
     "@aws-sdk/lib-dynamodb": "^3.830.0",
     "http-errors": "2.0.0",
     "joi": "17.13.3",
-    "serverless": "3.40.0",
-    "uuid": "^9.0.1",
+    "serverless": "^4.17.1",
+    "uuid": "^8.3.2",
     "winston": "3.17.0"
   },
   "engines": {
     "node": ">=18.0.0"
-  }
+  },
+  "devDependencies": {}
 }

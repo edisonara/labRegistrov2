@@ -2,18 +2,8 @@ service: lab-registro
 
 frameworkVersion: '4.17.1'
 
-plugins:
-  - serverless-webpack
 
 custom:
-  webpack:
-    webpackConfig: 'webpack.config.js'
-    includeModules: true
-    packager: 'npm'
-    packagerOptions:
-      scripts:
-        - npm install --production
-    excludeFiles: src/**/*.test.js
   prune:
     automatic: true
     number: 3
@@ -44,20 +34,6 @@ provider:
             - !GetAtt ItemsTable.Arn
             - !Sub ${ItemsTable.Arn}/index/*
 
-package:
-  individually: true
-  excludeDevDependencies: false
-  patterns:
-    - '!node_modules/**'
-    - '!package-lock.json'
-    - '!README.md'
-    - '!.git/**'
-    - '!.github/**'
-    - '!.gitignore'
-    - '!.env'
-    - '!.env.example'
-    - '!.webpack/**'
-    - '!.serverless/**'
 
 resources:
   Resources:
