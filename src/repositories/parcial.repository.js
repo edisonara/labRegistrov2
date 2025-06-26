@@ -2,6 +2,18 @@ const BaseRepository = require('./base.repository');
 const Parcial = require('../models/parcial.model');
 
 class ParcialRepository extends BaseRepository {
+  // Obtiene un parcial específico dada la asignatura (PK) y el id
+  async getById(id, asignaturaPk) {
+    const items = await this.query({
+      KeyConditionExpression: 'PK = :pk AND SK = :sk',
+      ExpressionAttributeValues: {
+        ':pk': asignaturaPk,
+        ':sk': `PARCIAL#${id}`
+      }
+    });
+    return items.length > 0 ? items[0] : null;
+  }
+
   constructor() {
     super(Parcial);
   }

@@ -24,8 +24,8 @@ class Asignatura {
   toItem() {
     return {
       ...this,
-      GSI1PK: `ASG#${this.PK.split('#')[1]}`,
-      GSI1SK: 'META',
+      GSI1PK: 'META',
+      GSI1SK: `ASG#${this.PK.split('#')[1]}`,
     };
   }
 

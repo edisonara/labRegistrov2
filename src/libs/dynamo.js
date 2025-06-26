@@ -39,6 +39,7 @@ const createResponse = (statusCode, body) => ({
 });
 
 // CRUD Operations
+// createItem es el nombre preferido; alias putItem para compatibilidad
 const createItem = async (item) => {
   const command = new PutCommand({
     TableName: TABLE_NAME,
@@ -99,7 +100,9 @@ const deleteItem = async (pk, sk) => {
 
 module.exports = {
   createResponse,
+  // alias
   createItem,
+  putItem: createItem,
   getItem,
   queryItems,
   updateItem,

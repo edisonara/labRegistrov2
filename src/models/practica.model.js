@@ -33,8 +33,8 @@ class Practica {
   toItem() {
     return {
       ...this,
-      GSI1PK: `PRACTICA#${this.id}`,
-      GSI1SK: `ASG#${this.asignaturaId}#PARCIAL#${this.parcialId}`,
+      GSI1PK: 'META',
+      GSI1SK: `PRACTICA#${this.id}`,
       GSI2PK: `LAB#${this.laboratorioId}`,
       GSI2SK: `FECHA#${this.fecha}`
     };

@@ -1,0 +1,75 @@
+{
+  "info": {
+    "name": "Lab Registro API - Full",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_postman_id": "8b9b9c6c-f123-4f0a-bc3d-123456789abc"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "https://guc9zkb4ee.execute-api.us-east-2.amazonaws.com" }
+  ],
+  "item": [
+    {
+      "name": "Bienvenida",
+      "request": { "method": "GET", "url": "{{baseUrl}}/" }
+    },
+    {
+      "name": "Laboratorios",
+      "item": [
+        { "name": "Crear",       "request": { "method": "POST",   "header": [{"key":"Content-Type","value":"application/json"}], "url": "{{baseUrl}}/laboratorios", "body": {"mode": "raw", "raw": "{}"} } },
+        { "name": "Listar",      "request": { "method": "GET",    "url": "{{baseUrl}}/laboratorios" } },
+        { "name": "Obtener",     "request": { "method": "GET",    "url": "{{baseUrl}}/laboratorios/:id" } },
+        { "name": "Actualizar",  "request": { "method": "PUT",    "header": [{"key":"Content-Type","value":"application/json"}], "url": "{{baseUrl}}/laboratorios/:id", "body": {"mode": "raw", "raw": "{}"} } },
+        { "name": "Eliminar",    "request": { "method": "DELETE", "url": "{{baseUrl}}/laboratorios/:id" } },
+        { "name": "Disponibilidad", "request": { "method": "GET", "url": "{{baseUrl}}/laboratorios/:id/disponibilidad?fecha=2025-06-26&horaInicio=08:00&horaFin=10:00" } }
+      ]
+    },
+    {
+      "name": "Asignaturas",
+      "item": [
+        { "name": "Crear",      "request": { "method": "POST", "header":[{"key":"Content-Type","value":"application/json"}], "url": "{{baseUrl}}/asignaturas", "body": {"mode":"raw","raw":"{}"} } },
+        { "name": "Listar",     "request": { "method": "GET",  "url": "{{baseUrl}}/asignaturas" } },
+        { "name": "Obtener",    "request": { "method": "GET",  "url": "{{baseUrl}}/asignaturas/:id" } },
+        { "name": "Actualizar", "request": { "method": "PUT",  "header":[{"key":"Content-Type","value":"application/json"}], "url": "{{baseUrl}}/asignaturas/:id", "body": {"mode":"raw","raw":"{}"} } },
+        { "name": "Eliminar",   "request": { "method": "DELETE", "url": "{{baseUrl}}/asignaturas/:id" } },
+        { "name": "Por Docente", "request": { "method": "GET", "url": "{{baseUrl}}/docentes/:docenteId/asignaturas" } },
+        { "name": "Con Parciales", "request": { "method": "GET", "url": "{{baseUrl}}/asignaturas/id/:id/parciales" } }
+      ]
+    },
+    {
+      "name": "Parciales",
+      "item": [
+        { "name": "Crear",      "request": { "method": "POST", "header":[{"key":"Content-Type","value":"application/json"}], "url": "{{baseUrl}}/asignaturas/:asignaturaId/parciales", "body": {"mode":"raw","raw":"{}"} } },
+        { "name": "Listar por asignatura", "request": { "method": "GET", "url": "{{baseUrl}}/asignaturas/:asignaturaId/parciales" } },
+        { "name": "Obtener",    "request": { "method": "GET", "url": "{{baseUrl}}/asignaturas/:asignaturaId/parciales/:id" } },
+        { "name": "Actualizar", "request": { "method": "PUT", "header":[{"key":"Content-Type","value":"application/json"}], "url": "{{baseUrl}}/asignaturas/:asignaturaId/parciales/:id", "body": {"mode":"raw","raw":"{}"} } },
+        { "name": "Eliminar",   "request": { "method": "DELETE", "url": "{{baseUrl}}/asignaturas/:asignaturaId/parciales/:id" } },
+        { "name": "Activos",    "request": { "method": "GET", "url": "{{baseUrl}}/parciales/activos" } },
+        { "name": "Con prácticas", "request": { "method": "GET", "url": "{{baseUrl}}/asignaturas/:asignaturaId/parciales/id/:id/practicas" } }
+      ]
+    },
+    {
+      "name": "Prácticas",
+      "item": [
+        { "name": "Crear",        "request": { "method": "POST", "header":[{"key":"Content-Type","value":"application/json"}], "url": "{{baseUrl}}/asignaturas/:asignaturaId/parciales/:parcialId/practicas", "body": {"mode":"raw","raw":"{}"} } },
+        { "name": "Listar por parcial", "request": { "method": "GET", "url": "{{baseUrl}}/asignaturas/:asignaturaId/parciales/parcial/:parcialId/practicas" } },
+        { "name": "Listar por laboratorio", "request": { "method": "GET", "url": "{{baseUrl}}/laboratorios/:laboratorioId/practicas" } },
+        { "name": "Obtener",     "request": { "method": "GET", "url": "{{baseUrl}}/practicas/:id" } },
+        { "name": "Actualizar",  "request": { "method": "PUT", "header":[{"key":"Content-Type","value":"application/json"}], "url": "{{baseUrl}}/practicas/:id", "body": {"mode":"raw","raw":"{}"} } },
+        { "name": "Eliminar",    "request": { "method": "DELETE", "url": "{{baseUrl}}/practicas/:id" } },
+        { "name": "Con usos",    "request": { "method": "GET", "url": "{{baseUrl}}/practicas/:id/usos" } }
+      ]
+    },
+    {
+      "name": "Uso de Equipos",
+      "item": [
+        { "name": "Registrar uso",   "request": { "method": "POST", "header":[{"key":"Content-Type","value":"application/json"}], "url": "{{baseUrl}}/uso-equipos", "body": {"mode":"raw","raw":"{}"} } },
+        { "name": "Finalizar uso",   "request": { "method": "PUT", "header":[{"key":"Content-Type","value":"application/json"}], "url": "{{baseUrl}}/uso-equipos/:id/finalizar", "body": {"mode":"raw","raw":"{}"} } },
+        { "name": "Obtener uso",     "request": { "method": "GET", "url": "{{baseUrl}}/uso-equipos/:id" } },
+        { "name": "Usos por estudiante", "request": { "method": "GET", "url": "{{baseUrl}}/estudiantes/:estudianteId/usos" } },
+        { "name": "Usos por práctica",  "request": { "method": "GET", "url": "{{baseUrl}}/practicas/id/:practicaId/usos" } },
+        { "name": "Usos por laboratorio", "request": { "method": "GET", "url": "{{baseUrl}}/laboratorios/:laboratorioId/usos" } },
+        { "name": "Estadísticas laboratorio", "request": { "method": "GET", "url": "{{baseUrl}}/laboratorios/:laboratorioId/estadisticas" } }
+      ]
+    }
+  ]
+}

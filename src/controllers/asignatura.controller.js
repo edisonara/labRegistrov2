@@ -1,4 +1,5 @@
 const BaseController = require('./base.controller');
+const { createResponse } = require('../libs/dynamo');
 const asignaturaService = require('../services/asignatura.service');
 
 class AsignaturaController extends BaseController {

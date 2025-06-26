@@ -26,8 +26,8 @@ class Laboratorio {
   toItem() {
     return {
       ...this,
-      GSI1PK: `LAB#${this.PK.split('#')[1]}`,
-      GSI1SK: 'META',
+      GSI1PK: 'META',
+      GSI1SK: `LAB#${this.PK.split('#')[1]}`,
     };
   }
 

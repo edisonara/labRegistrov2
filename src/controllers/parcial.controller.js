@@ -1,4 +1,5 @@
 const BaseController = require('./base.controller');
+const { createResponse } = require('../libs/dynamo');
 const parcialService = require('../services/parcial.service');
 
 class ParcialController extends BaseController {

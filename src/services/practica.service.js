@@ -4,6 +4,29 @@ const laboratorioService = require('./laboratorio.service');
 const usoEquipoRepository = require('../repositories/usoEquipo.repository');
 
 class PracticaService {
+  // Métodos genéricos esperados por BaseController
+  async create(data) {
+    return this.createPractica(data);
+  }
+
+  async getById(id) {
+    return this.getPractica(id);
+  }
+
+  async update(id, data) {
+    return this.updatePractica(id, data);
+  }
+
+  async delete(id) {
+    return this.deletePractica(id);
+  }
+
+  async list() {
+    // Lista de prácticas podría requerir parámetros; devolvemos error explícito
+    throw new Error('Para listar prácticas use listPracticasByParcial o listPracticasByLaboratorio');
+  }
+
+
   async createPractica(data) {
     // Verificar que el parcial existe
     await parcialService.getParcial(data.parcialId, data.asignaturaId);

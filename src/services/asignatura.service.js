@@ -3,6 +3,28 @@ const parcialRepository = require('../repositories/parcial.repository');
 const practicaRepository = require('../repositories/practica.repository');
 
 class AsignaturaService {
+  // Métodos genéricos esperados por BaseController
+  async create(data) {
+    return this.createAsignatura(data);
+  }
+
+  async getById(id) {
+    return this.getAsignatura(id);
+  }
+
+  async update(id, data) {
+    return this.updateAsignatura(id, data);
+  }
+
+  async delete(id) {
+    return this.deleteAsignatura(id);
+  }
+
+  async list() {
+    return this.listAsignaturas();
+  }
+
+
   async createAsignatura(data) {
     // Validar que no exista una asignatura con el mismo código
     const existente = await asignaturaRepository.getByCodigo(data.codigo);

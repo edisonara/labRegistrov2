@@ -3,6 +3,30 @@ const asignaturaService = require('./asignatura.service');
 const practicaRepository = require('../repositories/practica.repository');
 
 class ParcialService {
+  // Métodos genéricos esperados por BaseController
+  async create(data) {
+    return this.createParcial(data);
+  }
+
+  async getById(id) {
+    // Sin asignaturaId no puede recuperar; devolvemos error explícito
+    throw new Error('Debe proporcionar asignaturaId');
+  }
+
+  async update(id, data) {
+    throw new Error('update requiere asignaturaId');
+  }
+
+  async delete(id) {
+    throw new Error('delete requiere asignaturaId');
+  }
+
+  async list() {
+    // Por defecto lista los parciales activos
+    return this.listParcialesActivos();
+  }
+
+
   async createParcial(data) {
     // Verificar que la asignatura existe
     await asignaturaService.getAsignatura(data.asignaturaId);

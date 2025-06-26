@@ -1,0 +1,133 @@
+{
+  "info": {
+    "name": "Lab Registro API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_postman_id": "d9f0d1d4-1234-4abc-9876-abcdef123456"
+  },
+  "item": [
+    {
+      "name": "Bienvenida",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/",
+          "host": ["{{baseUrl}}"],
+          "path": [""]
+        }
+      }
+    },
+    {
+      "name": "Laboratorios",
+      "item": [
+        {
+          "name": "Crear laboratorio",
+          "request": {
+            "method": "POST",
+            "header": [
+              {"key": "Content-Type", "value": "application/json"}
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre\": \"Lab Computo\",\n  \"ubicacion\": \"Edificio A\",\n  \"equiposDisponibles\": [\"PC01\", \"PC02\"]\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/laboratorios",
+              "host": ["{{baseUrl}}"],
+              "path": ["laboratorios"]
+            }
+          }
+        },
+        {
+          "name": "Listar laboratorios",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/laboratorios",
+              "host": ["{{baseUrl}}"],
+              "path": ["laboratorios"]
+            }
+          }
+        },
+        {
+          "name": "Obtener laboratorio",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/laboratorios/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["laboratorios", ":id"]
+            }
+          }
+        },
+        {
+          "name": "Actualizar laboratorio",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {"key": "Content-Type", "value": "application/json"}
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"ubicacion\": \"Edificio B\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/laboratorios/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["laboratorios", ":id"]
+            }
+          }
+        },
+        {
+          "name": "Eliminar laboratorio",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/laboratorios/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["laboratorios", ":id"]
+            }
+          }
+        },
+        {
+          "name": "Disponibilidad laboratorio",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/laboratorios/:id/disponibilidad?fecha=2025-06-26&horaInicio=08:00&horaFin=10:00",
+              "host": ["{{baseUrl}}"],
+              "path": ["laboratorios", ":id", "disponibilidad"],
+              "query": [
+                {"key": "fecha", "value": "2025-06-26"},
+                {"key": "horaInicio", "value": "08:00"},
+                {"key": "horaFin", "value": "10:00"}
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Asignaturas",
+      "item": [
+        {
+          "name": "Crear asignatura",
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Content-Type", "value": "application/json"}],
+            "body": {"mode": "raw", "raw": "{\n  \"nombre\": \"Programación\",\n  \"docenteId\": \"123\"\n}"},
+            "url": {"raw": "{{baseUrl}}/asignaturas", "host": ["{{baseUrl}}"], "path": ["asignaturas"]}
+          }
+        },
+        {"name": "Listar asignaturas", "request": {"method": "GET", "url": {"raw": "{{baseUrl}}/asignaturas", "host": ["{{baseUrl}}"], "path": ["asignaturas"]}}}
+      ]
+    }
+  ],
+  "variable": [
+    {"key": "baseUrl", "value": "https://guc9zkb4ee.execute-api.us-east-2.amazonaws.com"}
+  ]
+}

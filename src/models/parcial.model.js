@@ -27,8 +27,8 @@ class Parcial {
   toItem() {
     return {
       ...this,
-      GSI1PK: `PARCIAL#${this.id}`,
-      GSI1SK: `ASG#${this.asignaturaId}`,
+      GSI1PK: 'META',
+      GSI1SK: `PARCIAL#${this.id}`,
     };
   }
 

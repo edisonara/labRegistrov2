@@ -3,6 +3,31 @@ const practicaService = require('./practica.service');
 const laboratorioService = require('./laboratorio.service');
 
 class UsoEquipoService {
+  // Métodos genéricos esperados por BaseController
+  async create(data) {
+    return this.registrarUso(data);
+  }
+
+  async getById(id) {
+    // Se requiere estudianteId para obtener el uso; lanzar error
+    throw new Error('Debe proporcionar estudianteId');
+  }
+
+  async update(id, data) {
+    // No aplica
+    throw new Error('update no soportado en UsoEquipoService');
+  }
+
+  async delete(id) {
+    // No se permite borrar uso
+    throw new Error('delete no soportado en UsoEquipoService');
+  }
+
+  async list() {
+    throw new Error('Para listar usos utilice listUsosByEstudiante, listUsosByPractica o listUsosByLaboratorio');
+  }
+
+
   async registrarUso(data) {
     // Verificar que la práctica existe
     const practica = await practicaService.getPractica(data.practicaId);

@@ -3,6 +3,28 @@ const practicaRepository = require('../repositories/practica.repository');
 const usoEquipoRepository = require('../repositories/usoEquipo.repository');
 
 class LaboratorioService {
+  // Métodos genéricos esperados por BaseController
+  async create(data) {
+    return this.createLaboratorio(data);
+  }
+
+  async getById(id) {
+    return this.getLaboratorio(id);
+  }
+
+  async update(id, data) {
+    return this.updateLaboratorio(id, data);
+  }
+
+  async delete(id) {
+    return this.deleteLaboratorio(id);
+  }
+
+  async list() {
+    return this.listLaboratorios();
+  }
+
+
   async createLaboratorio(data) {
     // Validar que no exista un laboratorio con el mismo nombre
     const existente = await laboratorioRepository.getByNombre(data.nombre);
