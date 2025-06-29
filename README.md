@@ -305,3 +305,58 @@ This will start a local emulator of AWS Lambda and tunnel your requests to and f
 Now you can invoke the function as before, but this time the function will be executed locally. Now you can develop your function locally, invoke it, and see the results immediately without having to re-deploy.
 
 When you are done developing, don't forget to run `serverless deploy` to deploy the function to the cloud.
+
+## 👥 Integrantes del Equipo y Responsabilidades
+
+###  EDISON ALEXANDER ARAMBULO ROJAS
+**Responsable de:**
+-  Actividad 1: Configuración del Entorno Backend  
+   - Instalar Node.js, Framework Serverless y configurar credenciales de AWS  
+   - Crear el proyecto inicial con `serverless create`  
+   - Instalar dependencias necesarias (`aws-sdk`, `joi`, etc.)
+-  Actividad 3 (parte): Implementar CRUD para `/laboratorios` y `/asignaturas`
+-  Colaborar en documentación técnica de backend (README.md sección: Tecnologías utilizadas, Configuración del entorno)
+
+---
+
+###  ADRIANA PAMELA GONZALEZ ORELLANA
+**Responsable de:**
+-  Actividad 2: Diseño de la Base de Datos en DynamoDB  
+   - Modelar todas las entidades según el patrón de Single Table Design  
+   - Crear esquema lógico y definir claves de partición y sort key
+-  Actividad 3 (parte): Implementar CRUD para `/parciales` y `/practicas`
+-  Contribuir con diagramas o representaciones del modelo en el README.md
+
+---
+
+###  JHON STEEVEN GUAMAN TOBAR
+**Responsable de:**
+-  Actividad 3 (parte):  
+   - Implementar endpoints RESTful para `/uso-equipos`  
+   - Finalizar configuración del `serverless.yml` para todas las funciones Lambda y recursos
+-  Actividad 4: Arquitectura limpia del backend  
+   - Separar el código por capas (controladores, servicios, repositorios)  
+   - Garantizar buenas prácticas de organización
+-  Documentar la estructura del backend y los endpoints en el README.md
+
+---
+
+###  STEFANNY MISHEL HERNANDEZ BUENAÑO
+**Responsable de:**
+-  Actividad 5: Desarrollo de la Aplicación Web Frontend  
+   - Diseñar la interfaz general usando React (u otro framework)  
+   - Implementar:  
+      - Inicio de sesión simulado  
+      - Panel del docente y estudiante
+-  Documentar el uso de la aplicación web y capturas de pantalla
+
+---
+
+###  JUAN CARLOS YASIG MONTENEGRO
+**Responsable de:**
+-  Actividad 5 (parte):  
+   - Panel del encargado: ver reporte de uso por semana/mes  
+   - Conexión completa del frontend con los endpoints API
+-  Actividad 6 y 7: Documentación final y entrega  
+   - Redactar README.md completo (introducción, objetivos, pasos de ejecución)  
+   - Organizar carpeta del repositorio (`backend/`, `frontend/`, `screenshots/`, etc.)
